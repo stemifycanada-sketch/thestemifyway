@@ -1,0 +1,60 @@
+{
+  "width": 1440,
+  "height": 878,
+  "labels": [
+    {
+      "text": "y = x²",
+      "x": 82.51031663682726,
+      "y": 27.295425866893865,
+      "equation": true
+    },
+    {
+      "text": "Mathematics",
+      "x": 84.57291497124567,
+      "y": 49.37448001939778,
+      "equation": false
+    },
+    {
+      "text": "Chemistry",
+      "x": 79.00817023383246,
+      "y": 24.70144215368736,
+      "equation": false
+    },
+    {
+      "text": "Physics",
+      "x": 52.33252631293402,
+      "y": 35.95637362747367,
+      "equation": false
+    },
+    {
+      "text": "Biology",
+      "x": 85.4252709282769,
+      "y": 74.75949506824816,
+      "equation": false
+    },
+    {
+      "text": "Structural engineering",
+      "x": 61.63348303900824,
+      "y": 28.230657555790863,
+      "equation": false
+    },
+    {
+      "text": "Arts",
+      "x": 52.440592447916664,
+      "y": 61.49144618006122,
+      "equation": false
+    },
+    {
+      "text": "Aa",
+      "x": 54.30906083848741,
+      "y": 78.57668101108699,
+      "equation": true
+    },
+    {
+      "text": "Language",
+      "x": 50.91482374403212,
+      "y": 101.00129633666714,
+      "equation": false
+    }
+  ]
+}

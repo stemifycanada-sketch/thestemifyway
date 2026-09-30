@@ -1,0 +1,14 @@
+.board-stage { background: #f3f0ed; }
+/* Share the portal's final screen position instead of scrolling a second
+   copy of its ending frame into view. Match the intro stage's actual height. */
+@media (min-width: 1024px) {
+  html:not([data-motion='reduced']) .interactive-section {
+    margin-top: calc(-1 * max(620px, 100svh - var(--nav-height)));
+  }
+}
+@media (max-width: 1023px) {
+  .board-world { min-height: 0; padding: 0; background: #f3f0ed; }
+  .whiteboard-film { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; }
+}
+html[data-motion='reduced'] .board-world { min-height: 0; padding: 0; background: #f3f0ed; }
+html[data-motion='reduced'] .whiteboard-film { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; }
