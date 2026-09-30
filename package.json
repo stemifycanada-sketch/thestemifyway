@@ -7,6 +7,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "start": "node server.mjs",
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b",
@@ -19,6 +20,7 @@
     "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
+    "express": "^5.2.1",
     "gsap": "^3.15.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
