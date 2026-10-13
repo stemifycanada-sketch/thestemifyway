@@ -59,7 +59,7 @@ function WaygroundSearch() {
       <div className="learning-catalogue-search"><Field label="Topic or keyword"><input type="search" value={topic} onChange={event => { setTopic(event.target.value); setError('') }} placeholder="e.g. Fractions or balanced forces" maxLength={160} required aria-describedby="wayground-search-help" /></Field><button className="portal-primary" disabled={!topic.trim()}>Search Wayground ↗</button></div>
       {error && <p className="portal-error" role="alert">{error}</p>}
     </form>
-    <p className="learning-help">After starting or assigning the quiz, copy its student join link. Use <strong>+ Add resource → Wayground quiz</strong> above to share it through STEMIFY.</p>
+    <p className="learning-help">Sign into your teacher account on Wayground to host. Share the session code with students and send them to <a href="/join">STEMIFY’s student join page →</a>. You can also save the student join link using <strong>+ Add resource → Wayground quiz</strong>.</p>
   </section>
 }
 

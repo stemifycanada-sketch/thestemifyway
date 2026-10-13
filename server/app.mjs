@@ -30,7 +30,7 @@ export function createApp({ db, config, mailer }) {
   mountLearning(app, db)
   app.use('/api', (_req, _res, next) => next(new HttpError(404, 'Not found.')))
   const dist = fileURLToPath(new URL('../dist/', import.meta.url))
-  app.get(['/portal', '/portal/'], (_req, res) => {
+  app.get(['/portal', '/portal/', '/join', '/join/'], (_req, res) => {
     res.setHeader('Cache-Control', 'no-store')
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://wayground.com https://*.wayground.com https://quizizz.com https://*.quizizz.com; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
     res.sendFile('index.html', { root: dist })
