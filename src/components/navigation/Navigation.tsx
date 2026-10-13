@@ -40,6 +40,7 @@ export function Navigation({ onAssessment, assessmentOpen = false }: { onAssessm
       <Brand inverted />
       <nav id="primary-navigation" className="primary-navigation" aria-label="Primary" hidden={!desktop && !open}>
         <a href="#choice">The Stemify Way</a>
+        <a href="/portal">Family portal</a>
         <a href="#subjects" onClick={() => followLink('#subjects')}>Programs</a>
         <div className="nav-resources" onBlur={event => {
           if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setResourcesOpen(false)
