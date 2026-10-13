@@ -49,6 +49,10 @@
 .learning-review { padding:1.2rem; background:#f6f7f1; border-radius:6px; }
 .learning-library-tools { display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.45fr); gap:1rem; margin-bottom:1rem; }
 .learning-library-caption { margin-bottom:1.5rem!important; }
+.learning-catalogue { display:grid; gap:1rem; margin-bottom:2rem; background:#f1f5eb; border-color:#ccd9bf; }
+.learning-catalogue h3 { margin-top:.45rem; }
+.learning-catalogue-search { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:1rem; }
+.learning-catalogue-search button { min-height:46px; }
 .learning-resources { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; align-items:start; }
 .learning-resource { min-width:0; }
 .learning-resource h3 { font-size:1.5rem; overflow-wrap:anywhere; }
@@ -79,6 +83,8 @@
   .learning-assignment h3 { font-size:1.5rem; }
   .learning-assigned-resource { padding:1rem; }
   .learning-library-tools { grid-template-columns:1fr; }
+  .learning-catalogue { padding:1.2rem; }
+  .learning-catalogue-search { grid-template-columns:1fr; }
   .learning-attempt summary { align-items:flex-start; gap:.5rem; }
   .learning-attempt-date { display:block; padding-left:1.2rem; margin-top:.25rem; }
   .learning-review { padding:1rem; }

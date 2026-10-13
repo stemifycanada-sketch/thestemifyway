@@ -120,6 +120,8 @@ PDF/PNG/JPEG uploads are limited to 5 MiB each. Files are stored in PostgreSQL, 
 
 ### Wayground inside the portal
 
+In the staff **Resource library**, **Search the Wayground catalogue** opens topic results on Wayground in a new tab. Choose/start or assign the quiz there, then save its student join link using **+ Add resource → Wayground quiz**. The separate saved-resource filter searches materials already added to STEMIFY. Catalogue search is a teacher-only outbound shortcut, not an API integration: it sends only the entered topic when submitted, does not search while typing, and does not import results or scores. It uses Wayground's currently observed Explore search route; recheck that route if Wayground changes its navigation.
+
 Staff can create a **Wayground quiz** resource with a launch link and optional copied Embed URL. For public education resources, Wayground documents **⋯ → Embed** on the resource details page; Flashcards are excluded. Paste the iframe `src` URL only, not HTML. Official HTTPS Wayground/Quizizz hosts are allowed; unsupported or malicious hosts are rejected.
 
 Students choose **Open quiz here** to load the external quiz in a sandboxed iframe. Nothing contacts Wayground until that click. **Launch quiz** opens a separate tab as a fallback. A live game code may expire when the host ends that session; use a persistent assigned activity/resource link for homework. The supplied live test link is saved only in the local demo, not hardcoded into production or committed.
@@ -133,4 +135,5 @@ References: [Wayground embed instructions](https://help.wayground.com/support/so
 - Build and lint pass; all 40 backend tests pass, including 13 learning-hub tests for scoped access, uploads, concurrent updates, review history, family quotas, pagination and quiz URL validation.
 - Local browser checks passed with synthetic accounts: staff published and assigned practice, the student submitted text and a JPEG attachment, staff shared a score and feedback, and the parent saw the reviewed work and resource library. Desktop (1280px) and phone (390px) layouts were inspected without horizontal overflow.
 - The owner-provided live Wayground session was joined as a test participant. Questions, answer feedback and the session summary loaded. This verifies direct launch/play only. An official resource Embed URL is still needed to validate playback inside the portal.
+- Catalogue shortcut checks confirmed teacher-only visibility, blank/dot-only input handling and a new Wayground tab with the trimmed, encoded topic in its URL. Desktop and phone layouts passed visual checks. The destination's search-result contents were not inspected because browser account access was unavailable.
 - Real Zoom delivery and transcript/summary accuracy, managed PostgreSQL and real email delivery remain staging acceptance checks. No production deployment is part of this validation.

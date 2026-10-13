@@ -35,6 +35,34 @@ async function fileFromForm(values: FormData, csrf: string) {
   return file instanceof File && file.size ? (await uploadLearningFile(file, csrf)).id : undefined
 }
 
+function WaygroundSearch() {
+  const [topic, setTopic] = useState(''), [error, setError] = useState('')
+  function search(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const query = topic.trim()
+    if (!query || query === '.' || query === '..') {
+      setError('Enter a topic, such as fractions or balanced forces.')
+      return
+    }
+    try {
+      const url = `https://wayground.com/explore/admin/search/all/${encodeURIComponent(query)}`
+      window.open(url, '_blank', 'noopener,noreferrer')
+      setError('')
+    } catch {
+      setError('Please retype the topic and try again.')
+    }
+  }
+  return <section className="portal-panel learning-catalogue" aria-labelledby="wayground-search-heading">
+    <div><p className="portal-eyebrow">DISCOVER YOUR NEXT QUIZ</p><h3 id="wayground-search-heading">Search the Wayground catalogue.</h3></div>
+    <p className="learning-help" id="wayground-search-help">Search topics across Wayground’s catalogue. Results open on Wayground in a new tab, where you can choose and start a quiz. You may need to sign in.</p>
+    <form role="search" aria-label="Wayground catalogue" onSubmit={search}>
+      <div className="learning-catalogue-search"><Field label="Topic or keyword"><input type="search" value={topic} onChange={event => { setTopic(event.target.value); setError('') }} placeholder="e.g. Fractions or balanced forces" maxLength={160} required aria-describedby="wayground-search-help" /></Field><button className="portal-primary" disabled={!topic.trim()}>Search Wayground ↗</button></div>
+      {error && <p className="portal-error" role="alert">{error}</p>}
+    </form>
+    <p className="learning-help">After starting or assigning the quiz, copy its student join link. Use <strong>+ Add resource → Wayground quiz</strong> above to share it through STEMIFY.</p>
+  </section>
+}
+
 function ResourceContent({ resource }: { resource: Resource }) {
   const [quizOpen, setQuizOpen] = useState(false)
   const link = safeLearningUrl(resource.link_url), embed = resource.kind === 'wayground' ? safeQuizEmbed(resource.embed_url) : null
@@ -230,7 +258,8 @@ export function LearningHub({ user, csrf, students }: { user: User; csrf: string
       <div className="learning-list-heading"><p className="learning-help">{staff ? 'New submissions appear first for your review.' : 'A new attempt is a new chance to grow.'}</p><Field label="Homework status"><select value={status} onChange={event => setStatus(event.target.value)}><option value="all">All homework</option>{Object.entries(statusNames).map(([key, value]) => <option key={key} value={key}>{value}</option>)}</select></Field></div>
       {assignments.length ? <div className="learning-assignments">{assignments.map(assignment => <AssignmentCard key={`${assignment.id}-${assignment.version}`} assignment={assignment} resource={data.resources.find(resource => resource.id === assignment.resource_id)} submissions={data.submissions.filter(submission => submission.assignment_id === assignment.id).sort((a, b) => Date.parse(b.submitted_at) - Date.parse(a.submitted_at))} staff={staff} csrf={csrf} done={() => done(staff ? 'Review shared with the family.' : 'Work submitted for teacher review.')} timezone={students.find(student => student.id === assignment.student_id)?.timezone} now={now} />)}</div> : <div className="portal-empty"><h3>{data.hasMore ? 'No matches in the loaded homework.' : status === 'all' ? 'Space for the next challenge.' : 'Nothing in this group yet.'}</h3><p>{data.hasMore ? 'Load more homework and resources to keep looking with these filters.' : staff ? 'Assign a worksheet, a quiz or your own practice instructions to get started.' : 'Your teacher will share homework here. In the meantime, explore your resource library.'}</p></div>}
     </> : <>
-      <div className="learning-library-tools"><Field label="Find a resource"><input type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Search title, subject or grade" /></Field><Field label="Resource type"><select value={kind} onChange={event => setKind(event.target.value)}><option value="all">All resources</option>{Object.entries(kindNames).map(([key, value]) => <option key={key} value={key}>{value}</option>)}</select></Field></div>
+      {staff && <WaygroundSearch />}
+      <div className="learning-library-tools"><Field label={staff ? 'Find a saved STEMIFY resource' : 'Find a resource'}><input type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Search title, subject or grade" /></Field><Field label="Resource type"><select value={kind} onChange={event => setKind(event.target.value)}><option value="all">All resources</option>{Object.entries(kindNames).map(([key, value]) => <option key={key} value={key}>{value}</option>)}</select></Field></div>
       <p className="learning-help learning-library-caption">{staff ? 'Your reusable teaching collection. Assigned resources stay private to the learners who receive them.' : 'Browse shared resources and materials assigned to your family. Homework submissions belong in the Homework tab.'}</p>
       {resources.length ? <div className="learning-resources">{resources.map(resource => <article className="portal-panel learning-resource" key={resource.id}><div className="portal-section-heading"><p className="portal-eyebrow">{kindNames[resource.kind]}</p><span className="portal-tag">{resource.visibility === 'library' ? 'Shared library' : 'Assigned access'}</span></div><h3>{resource.title}</h3><p className="learning-due">{[resource.subject, resource.grade].filter(Boolean).join(' · ')}</p><ResourceContent resource={resource} />{staff && !resource.published && <p className="learning-help">Unpublished · visible only to staff</p>}</article>)}</div> : <div className="portal-empty"><h3>{data.hasMore ? 'No matches in the loaded resources.' : search || kind !== 'all' ? 'No matching resources.' : 'A collection ready to grow.'}</h3><p>{data.hasMore ? 'Load more homework and resources to search the rest of your collection.' : search || kind !== 'all' ? 'Try another title, subject or grade, or choose all resource types.' : staff ? 'Add your first worksheet, reference or Wayground quiz.' : 'Resources shared by your teaching team will appear here.'}</p></div>}
     </>}
