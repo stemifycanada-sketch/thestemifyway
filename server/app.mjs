@@ -4,6 +4,7 @@ import { ZodError } from 'zod'
 import { mountZoom } from './zoom.mjs'
 import { mountAuth } from './auth.mjs'
 import { mountPortal } from './portal.mjs'
+import { mountLearning } from './learning.mjs'
 import { HttpError } from './security.mjs'
 
 export function createApp({ db, config, mailer }) {
@@ -26,11 +27,12 @@ export function createApp({ db, config, mailer }) {
   app.use(express.json({ limit: '100kb' }))
   mountAuth(app, db, config, mailer)
   mountPortal(app, db, config)
+  mountLearning(app, db)
   app.use('/api', (_req, _res, next) => next(new HttpError(404, 'Not found.')))
   const dist = fileURLToPath(new URL('../dist/', import.meta.url))
   app.get(['/portal', '/portal/'], (_req, res) => {
     res.setHeader('Cache-Control', 'no-store')
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://wayground.com https://*.wayground.com https://quizizz.com https://*.quizizz.com; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
     res.sendFile('index.html', { root: dist })
   })
   app.use('/thestemifyway', express.static(dist))

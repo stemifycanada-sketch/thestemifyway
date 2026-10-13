@@ -3,6 +3,7 @@ import { connectDatabase, migrate } from './server/database.mjs'
 import { createMailer } from './server/mail.mjs'
 import { createApp } from './server/app.mjs'
 import { processZoomEvents, maintenance } from './server/zoom.mjs'
+import { learningMaintenance } from './server/learning.mjs'
 
 const config = loadConfig()
 const db = await connectDatabase(config)
@@ -14,7 +15,7 @@ let working = false
 const worker = setInterval(async () => {
   if (working) return
   working = true
-  try { await processZoomEvents(db); await maintenance(db) }
+  try { await processZoomEvents(db); await maintenance(db); await learningMaintenance(db) }
   catch { console.error('[zoom] Background processing unavailable; receipts remain queued') }
   finally { working = false }
 }, 10000)

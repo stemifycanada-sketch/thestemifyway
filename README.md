@@ -18,6 +18,8 @@ Plan, review, contact and assessment integration placeholders remain as displaye
 
 ## Family portal backend
 
-The integrated `/portal` supports verified parent registration, separate child logins, class scheduling, preparation notes, teacher-reviewed lesson summaries, and signed Zoom AI Companion webhooks. See [the setup and deployment guide](docs/portal-setup.md) for local demo accounts, staff access, PostgreSQL, email and Zoom configuration.
+The integrated `/portal` supports verified parent registration, separate child logins, class scheduling, preparation notes, teacher-reviewed lesson summaries, and signed Zoom AI Companion webhooks. Its learning hub adds worksheet/resource sharing, private homework submissions and attachments, teacher feedback and revision history, plus Wayground launch links and optional embeds. See [the setup and deployment guide](docs/portal-setup.md) for local demo accounts, staff access, PostgreSQL, email and integration configuration.
+
+Homework scores are teacher-reviewed; Wayground scores do not sync automatically. Zoom summaries remain private drafts until staff publish them. A [mock lesson validation guide](docs/zoom-live-validation.md) separates webhook delivery tests from real transcript and summary accuracy checks.
 
 Use `npm run dev:portal` for the complete local application and `npm run test:backend` for the backend checks. Production requires the environment settings in `.env.example` before this branch is deployed.

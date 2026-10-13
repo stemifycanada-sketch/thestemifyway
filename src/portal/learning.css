@@ -1,0 +1,86 @@
+.learning-hub { padding-top:.5rem; }
+.learning-intro { display:flex; gap:2rem; align-items:center; justify-content:space-between; padding:1rem 0 2rem; }
+.learning-intro h2 { margin:.65rem 0 .8rem; }
+.learning-intro>div>p:last-child { max-width:36rem; color:#62715b; font-size:.9rem; }
+.learning-overview { display:flex; gap:1.8rem; padding:1rem 0 1rem 2rem; border-left:1px solid #d5dcce; flex-shrink:0; }
+.learning-overview>div { display:flex; flex-direction:column; }
+.learning-overview strong { font-family:var(--font-display),sans-serif; color:#bc3f17; font-size:2.5rem; font-weight:400; line-height:1.2; }
+.learning-overview span { font-size:.7rem; color:#5f6d57; }
+.learning-toolbar { padding:1rem 0; margin-bottom:.5rem; }
+.learning-student-filter { min-width:180px; }
+.learning-editor { margin:1rem 0; }
+.learning-editor h3 { margin-top:.5rem; }
+.learning-help { color:#66735d; font-size:.75rem!important; line-height:1.6; font-weight:400; }
+.learning-copy { white-space:pre-wrap; overflow-wrap:anywhere; font-size:.86rem!important; line-height:1.7; color:#374531!important; }
+.learning-list-heading { display:flex; justify-content:space-between; align-items:center; gap:1.5rem; margin:0 0 1.4rem; }
+.learning-list-heading>.portal-field { min-width:190px; }
+.learning-assignments { display:grid; gap:1.5rem; }
+.learning-assignment { padding:1.8rem 2rem; min-width:0; }
+.learning-assignment h3 { font-size:1.8rem; }
+.learning-assignment-needs_revision { border-top:3px solid #b67436; }
+.learning-assignment-submitted { border-top:3px solid #7b96a2; }
+.learning-assignment-reviewed { border-top:3px solid #688954; }
+.learning-due { color:#64705c; font-size:.75rem; margin:.6rem 0 1rem!important; }
+.learning-overdue { color:#98532c; }
+.learning-status { display:inline-flex; white-space:nowrap; align-items:center; padding:.25rem .65rem; border-radius:5px; font-size:.65rem; color:#556744; background:#f0f3e9; font-weight:500; }
+.learning-status-submitted { color:#3e6374; background:#edf4f6; }
+.learning-status-needs_revision { color:#8c541e; background:#faf0e0; }
+.learning-status-reviewed { color:#40622c; background:#edf4e5; }
+.learning-assigned-resource { padding:1.2rem; background:#f7f8f2; border:1px solid #e1e6d7; border-radius:8px; margin:1.3rem 0; }
+.learning-assigned-resource h4 { margin:.45rem 0 .8rem; font-size:1rem; letter-spacing:-.01em; text-transform:none; }
+.learning-resource-content { display:grid; gap:1rem; min-width:0; }
+.learning-resource-content .portal-actions { align-items:flex-start; }
+.learning-attachment { display:inline-flex; gap:.5rem; align-items:center; font-size:.8rem; color:#38542c; text-decoration:underline; text-underline-offset:4px; min-height:44px; overflow-wrap:anywhere; padding:.55rem 0; max-width:100%; }
+.learning-hub input[type=file] { padding:.65rem; min-height:50px; font-size:.8rem; }
+.learning-hub input[type=file]::file-selector-button { border:0; border-radius:3px; padding:.35rem .65rem; margin-right:.8rem; font:inherit; background:#edf0e7; color:#3e5135; cursor:pointer; }
+.learning-submit { margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid #dfe5d6; }
+.learning-submit>button,.learning-review>button,.learning-editor>button { justify-self:start; }
+.learning-submit h4,.learning-review h4 { margin-bottom:0; }
+.learning-receipt { margin-top:1.3rem!important; padding:1rem; background:#f4f7ef; border-radius:5px; }
+.learning-history { border-top:1px solid #e0e5d8; margin-top:1.3rem; }
+.learning-attempt { border-bottom:1px solid #e0e5d8; }
+.learning-attempt summary { padding:1rem 0; display:flex; align-items:center; justify-content:space-between; gap:1rem; font-size:.85rem; font-weight:500; }
+.learning-attempt summary>span:first-child:before { content:'+'; display:inline-block; width:1.2rem; color:#758265; }
+.learning-attempt[open] summary>span:first-child:before { content:'−'; }
+.learning-attempt summary::-webkit-details-marker { display:none; }
+.learning-attempt-date { font-size:.72rem; font-weight:400; color:#68765c; }
+.learning-attempt-body { display:grid; gap:1rem; padding:0 0 1.3rem; }
+.learning-feedback { padding:1rem 1.2rem; border-left:3px solid #809a65; background:#f3f6ed; display:grid; gap:.6rem; }
+.learning-review { padding:1.2rem; background:#f6f7f1; border-radius:6px; }
+.learning-library-tools { display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.45fr); gap:1rem; margin-bottom:1rem; }
+.learning-library-caption { margin-bottom:1.5rem!important; }
+.learning-resources { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; align-items:start; }
+.learning-resource { min-width:0; }
+.learning-resource h3 { font-size:1.5rem; overflow-wrap:anywhere; }
+.learning-resource .portal-section-heading { gap:.6rem; }
+.learning-quiz { display:grid; gap:.7rem; min-width:0; }
+.learning-quiz iframe { display:block; width:100%; min-height:540px; border:1px solid #d3dcc7; border-radius:6px; background:#fff; }
+.learning-pagination { display:grid; justify-items:center; gap:1rem; margin-top:1.5rem; }
+.learning-pagination:empty { display:none; }
+.learning-page-note { margin-bottom:1.25rem!important; padding:.8rem 1rem; background:#edf1e6; border-radius:5px; }
+@media(max-width:800px) {
+  .learning-intro { align-items:flex-start; gap:1.5rem; }
+  .learning-overview { gap:1rem; padding-left:1rem; }
+  .learning-overview strong { font-size:2rem; }
+  .learning-overview span { max-width:4.5rem; }
+  .learning-resources { grid-template-columns:1fr; }
+  .learning-toolbar { flex-wrap:wrap; }
+}
+@media(max-width:500px) {
+  .learning-intro { flex-direction:column; padding-bottom:1rem; }
+  .learning-intro h2 { font-size:1.8rem; }
+  .learning-overview { border:0; border-top:1px solid #d5dcce; padding:1rem 0 0; width:100%; gap:2.5rem; }
+  .learning-overview>div { flex-direction:row; align-items:center; gap:.7rem; }
+  .learning-overview span { max-width:none; }
+  .learning-toolbar,.learning-list-heading { align-items:stretch; flex-direction:column; }
+  .learning-toolbar>.portal-actions { gap:.5rem; }
+  .learning-toolbar>.portal-actions>button { flex:1 1 auto; }
+  .learning-assignment { padding:1.2rem; }
+  .learning-assignment h3 { font-size:1.5rem; }
+  .learning-assigned-resource { padding:1rem; }
+  .learning-library-tools { grid-template-columns:1fr; }
+  .learning-attempt summary { align-items:flex-start; gap:.5rem; }
+  .learning-attempt-date { display:block; padding-left:1.2rem; margin-top:.25rem; }
+  .learning-review { padding:1rem; }
+  .learning-quiz iframe { min-height:480px; }
+}

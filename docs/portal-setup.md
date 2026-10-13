@@ -105,3 +105,32 @@ npm run build
 Backend tests run actual PostgreSQL semantics through an isolated in-memory PGlite database. They cover role enforcement, family isolation, child credentials, CSRF, verification/reset expiry and reuse, session revocation, Zoom signatures/replay/account checks, idempotency, ordering, ambiguous occurrences, safe draft publishing and local persistence. A managed PostgreSQL connection and real SMTP/Zoom delivery still need staging verification.
 
 If deployment fails, retain the existing production build and inspect only metadata/health status. Never paste raw event payloads or credentials into logs. The initial migration is additive; keep the database backup when reverting the application. Avoid running old application code against later migrations without checking compatibility.
+
+## Homework, worksheets and the family library
+
+The **Homework & library** section is shared by the three roles:
+
+- Staff publish a worksheet/reference file or external link, choose its subject/grade, and select **assigned learners only** or **all families in the library**. Use shared-library visibility for reusable teaching material, never private child work.
+- Staff assign a resource or written homework instructions to a specific student, with an optional due date.
+- The student or their parent submits an answer, a PDF worksheet or a PNG/JPEG photo. Submissions are private to that student, their parent and staff. Siblings cannot view each other's homework through separate student logins.
+- Staff check the work and share feedback, an optional score out of 100, and either **Reviewed** or **Needs another attempt**. Previous attempts and feedback remain available to the family. Review is performed by the teacher; the system does not automatically grade handwriting or invent AI marks.
+- Parents can browse the library, find assigned material, and follow submission/review history from the portal. Filters operate on loaded results; **Load more homework and resources** retrieves older pages.
+
+PDF/PNG/JPEG uploads are limited to 5 MiB each. Files are stored in PostgreSQL, delivered only through authenticated download routes and forced to download as attachments. MIME and file signatures are checked; this is not antivirus scanning. Files never enter a public static directory. Per-family upload allowance is 100 MiB/200 files (staff have their own allowance); removing a child's login does not reset the family quota. Unattached uploads are purged after 24 hours. Attached work is retained with its review history; define the operating retention/deletion policy before collecting real student work. Move to private object storage plus malware scanning if larger volume or additional formats are needed.
+
+### Wayground inside the portal
+
+Staff can create a **Wayground quiz** resource with a launch link and optional copied Embed URL. For public education resources, Wayground documents **⋯ → Embed** on the resource details page; Flashcards are excluded. Paste the iframe `src` URL only, not HTML. Official HTTPS Wayground/Quizizz hosts are allowed; unsupported or malicious hosts are rejected.
+
+Students choose **Open quiz here** to load the external quiz in a sandboxed iframe. Nothing contacts Wayground until that click. **Launch quiz** opens a separate tab as a fallback. A live game code may expire when the host ends that session; use a persistent assigned activity/resource link for homework. The supplied live test link is saved only in the local demo, not hardcoded into production or committed.
+
+Quiz hosting, participant identity and automatic grade sync are separate. Wayground's documented LMS/LTI integrations do not establish score sync with this custom portal. This version accepts a student's completion report and a teacher-verified manual score; opening a quiz does not automatically mark it completed or import a score.
+
+References: [Wayground embed instructions](https://help.wayground.com/support/solutions/articles/158000404972-can-i-embed-assessments-lessons-other-resources-into-webpages-), [Wayground LTI capabilities](https://help.wayground.com/support/solutions/articles/158000404851-why-use-lti-to-integrate-wayground-with-your-lms-benefits-faqs). For the Zoom mock lesson and accuracy checklist, see [Zoom live validation](zoom-live-validation.md).
+
+### Validation status — 2026-10-13
+
+- Build and lint pass; all 40 backend tests pass, including 13 learning-hub tests for scoped access, uploads, concurrent updates, review history, family quotas, pagination and quiz URL validation.
+- Local browser checks passed with synthetic accounts: staff published and assigned practice, the student submitted text and a JPEG attachment, staff shared a score and feedback, and the parent saw the reviewed work and resource library. Desktop (1280px) and phone (390px) layouts were inspected without horizontal overflow.
+- The owner-provided live Wayground session was joined as a test participant. Questions, answer feedback and the session summary loaded. This verifies direct launch/play only. An official resource Embed URL is still needed to validate playback inside the portal.
+- Real Zoom delivery and transcript/summary accuracy, managed PostgreSQL and real email delivery remain staging acceptance checks. No production deployment is part of this validation.
