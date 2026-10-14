@@ -4,10 +4,10 @@ import tseslint from 'typescript-eslint'
 import reactHooks from 'eslint-plugin-react-hooks'
 
 export default tseslint.config(
-  { ignores: ['dist', 'deployments', 'node_modules', 'test-results', 'playwright-report'] },
+  { ignores: ['dist', 'deployments', 'node_modules', 'test-results', 'playwright-report', '.data', 'artifacts'] },
   js.configs.recommended,
   { files: ['public/scroll-proof.js'], languageOptions: { globals: globals.browser } },
-  { files: ['scripts/**/*.mjs'], languageOptions: { globals: globals.node } },
+  { files: ['**/*.mjs'], languageOptions: { globals: globals.node } },
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{ts,tsx}'],

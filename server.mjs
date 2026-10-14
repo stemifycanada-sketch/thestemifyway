@@ -1,18 +1,31 @@
-import express from 'express'
-import { fileURLToPath } from 'node:url'
+import { loadConfig } from './server/config.mjs'
+import { connectDatabase, migrate } from './server/database.mjs'
+import { createMailer } from './server/mail.mjs'
+import { createApp } from './server/app.mjs'
+import { processZoomEvents, maintenance } from './server/zoom.mjs'
+import { learningMaintenance } from './server/learning.mjs'
 
-const app = express()
-const dist = fileURLToPath(new URL('./dist/', import.meta.url))
-app.disable('x-powered-by')
-app.get('/api/health', (_request, response) => response.json({ ok: true }))
-// Keep the published asset paths working at the existing Render root address.
-app.use('/thestemifyway', express.static(dist))
-app.use(express.static(dist))
-app.use((_request, response) => response.sendStatus(404))
-
-const server = app.listen(Number(process.env.PORT || 10000), process.env.HOST || '0.0.0.0', () => {
-  console.log('Stemify website ready')
+const config = loadConfig()
+const db = await connectDatabase(config)
+await migrate(db)
+const mailer = await createMailer(config)
+const app = createApp({ db, config, mailer })
+const server = app.listen(config.port, config.host, () => console.log(`Stemify ready at ${config.origin}`))
+let working = false
+const worker = setInterval(async () => {
+  if (working) return
+  working = true
+  try { await processZoomEvents(db); await maintenance(db); await learningMaintenance(db) }
+  catch { console.error('[zoom] Background processing unavailable; receipts remain queued') }
+  finally { working = false }
+}, 10000)
+worker.unref()
+for (const signal of ['SIGTERM', 'SIGINT']) process.once(signal, () => {
+  clearInterval(worker)
+  server.close(async () => {
+    while (working) await new Promise(resolve => setTimeout(resolve, 50))
+    await mailer.close?.()
+    await db.close()
+    process.exit(0)
+  })
 })
-for (const signal of ['SIGTERM', 'SIGINT']) {
-  process.on(signal, () => server.close(() => process.exit(0)))
-}

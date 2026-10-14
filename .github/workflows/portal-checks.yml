@@ -1,0 +1,24 @@
+name: Portal checks
+on:
+  pull_request:
+  push:
+    branches: [main, feature/family-portal]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --include=dev
+      - name: Ensure database safety check dependency
+        run: |
+          if ! command -v lsof >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install --yes lsof
+          fi
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test:backend
