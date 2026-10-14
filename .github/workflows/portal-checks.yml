@@ -13,6 +13,12 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --include=dev
+      - name: Ensure database safety check dependency
+        run: |
+          if ! command -v lsof >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install --yes lsof
+          fi
       - run: npm run lint
       - run: npm run build
       - run: npm run test:backend

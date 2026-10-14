@@ -23,3 +23,5 @@ The integrated `/portal` supports verified parent registration, separate child l
 Homework scores are teacher-reviewed; Wayground scores do not sync automatically. Zoom summaries remain private drafts until staff publish them. A [mock lesson validation guide](docs/zoom-live-validation.md) separates webhook delivery tests from real transcript and summary accuracy checks.
 
 Use `npm run dev:portal` for the complete local application and `npm run test:backend` for the backend checks. Production requires the environment settings in `.env.example` before this branch is deployed.
+
+For local-only operation without hosting costs, use `scripts/start-local.command`. See [the local portal guide](docs/local-portal.md) for first-admin setup, local account emails, stopping the app, and private backups. The portal stays on this computer; parents on other devices and live Zoom webhooks cannot reach its loopback address.
